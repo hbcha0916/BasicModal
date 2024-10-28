@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="./lib/css/bootstrap.min.css" />
+    <script src="./lib/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="./lib/js/basicModal.js" type="text/javascript"></script>
+</head>
+<body>
+    <div>
+        <button class="btn btn-success" onclick="testModal.modal.alert();">첫번째 모달 띄우기</button>
+    </div>
+    <div>
+        <button class="btn btn-danger" onclick="testModal2.modal.alert();">두번째 모달 띄우기</button>
+    </div>
+    
+    <div id="modalParentTag"> 
+        <!-- modal태그 하위 내용을 jsp로 따로만들고, c:import 시켜서 탬플릿화 시키기. -->
+        <!-- ModalTemplate.jsp -->
+            <div class="modal fade" id="modalAlert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modal-title">Modal title</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p id="modal-body-text"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalBtnCAN">닫기</button>
+                            <button type="button" class="btn btn-primary" id="modalBtnOK">확인</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- ModalTemplate.jsp END -->
+    </div>
+
+    <div id="modalParentTag2"> 
+        <!-- modal태그내 모든 내용을 jsp로 따로만들고, c:import 시켜서 탬플릿화 시키기. -->
+        <!-- ModalTemplate.jsp -->
+            <div class="modal fade" id="modalAlert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modal-title">Modal title</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p id="modal-body-text"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalBtnCAN">닫기</button>
+                            <button type="button" class="btn btn-primary" id="modalBtnOK">확인</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- ModalTemplate.jsp END -->
+    </div>
+</body>
+<script>
+    var testModal = {
+        modal : {},
+        init : function(){
+            $.extend(true, this.modal, basicModal);
+            this.modal.init(
+                "#modalParentTag",
+                "테스트 모달",
+                "내용에는<br>HTML을 사용할 수 있습니다. <button class='btn btn-primary'>버튼 샘플</button>",
+                [function(){console.log("MODAL OK..!")}],
+                [function(){console.log("MODAL CANCEL..!")}]
+            )
+        }
+    }
+
+    var testModal2 = {
+        modal : {},
+        init : function(){
+            $.extend(true, this.modal, basicModal);
+            this.modal.init(
+                "#modalParentTag2",
+                "테스트 모달2",
+                "내용에는<br>HTML을 사용할 수 있습니다. <button class='btn btn-danger'>버튼 샘플</button>",
+                [function(){console.log("MODAL OK..!")}],
+                [function(){console.log("MODAL CANCEL..!")}]
+            )
+        }
+    }
+
+    $(document).ready(function(){
+        testModal.init();
+        testModal2.init();
+        testModal.modal.alert();
+    });
+</script>
+</html>
